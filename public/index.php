@@ -1,58 +1,82 @@
-<?php
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+        </br> </br> </br>
+        <!--
+        <form name = "vacancyType" action = "vacancyType.php">
+            "Show all vacancy types"
+            <input type = "submit" value = "Open" />
+        </form>
+        -->
+        <form name = "addNewVacancy" action = "addNewVacancy.php">
+            Add new vacancy:
+            <input type = "submit" value = "Add new" />
+        </form>
+        <table class="striped">
+            <tr class="header">
+                <td>Id</td>
+                <td>Type</td>
+                <td>Expiry date</td>
+                <td>Company name</td>
+                <td>Company email</td>
+                <td>Position</td>
+                <td>Description</td>
+                <td>Requirements</td>
+                <td>Offer</td>
+            </tr>
+        <?php
+        $user = 'root';
+        $pass = '';
+        try {
+            $dbh = new PDO('mysql:host=localhost;dbname=talenthire_dbw', $user, $pass);
+            foreach($dbh->query('select * from vacancytable') as $row) {
+                $tmp=$row['vacancyId'];
+                $vacTypeId = $row["vacancyTypeId"];
+                
+                $sql= "select * from vacancyType where VacancyTypeId = :vacTypeId"; 
+                $stmt = $dbh->prepare($sql);
+                $stmt->bindParam(':vacTypeId', $vacTypeId, PDO::PARAM_INT); 
+                $stmt->execute();
+                $vacTypeTable = $stmt->fetchObject();
+                
+                echo "<tr>";
+                echo "<td>".$row["vacancyId"]."</td>";
+                echo "<td>".$vacTypeTable->VacancyTypeName."</td>";
+                echo "<td>".$row["vacancyExpDate"]."</td>";
+                echo "<td>".$row["companyName"]."</td>";
+                echo "<td>".$row["companyEmail"]."</td>";
+                echo "<td>".$row["positionName"]."</td>";
+                echo "<td>".$row["positionDescription"]."</td>";
+                echo "<td>".$row["positionReq"]."</td>";
+                echo "<td>".$row["positionOff"]."</td>";
+                echo "<td>"
+                ?>
 
-/**
- * Laravel - A PHP Framework For Web Artisans
- *
- * @package  Laravel
- * @author   Taylor Otwell <taylorotwell@gmail.com>
- */
-
-/*
-|--------------------------------------------------------------------------
-| Register The Auto Loader
-|--------------------------------------------------------------------------
-|
-| Composer provides a convenient, automatically generated class loader for
-| our application. We just need to utilize it! We'll simply require it
-| into the script here so that we don't have to worry about manual
-| loading any of our classes later on. It feels nice to relax.
-|
-*/
-
-require __DIR__.'/../bootstrap/autoload.php';
-
-/*
-|--------------------------------------------------------------------------
-| Turn On The Lights
-|--------------------------------------------------------------------------
-|
-| We need to illuminate PHP development, so let us turn on the lights.
-| This bootstraps the framework and gets it ready for use, then it
-| will load up this application so that we can run it and send
-| the responses back to the browser and delight our users.
-|
-*/
-
-$app = require_once __DIR__.'/../bootstrap/app.php';
-
-/*
-|--------------------------------------------------------------------------
-| Run The Application
-|--------------------------------------------------------------------------
-|
-| Once we have the application, we can handle the incoming request
-| through the kernel, and send the associated response back to
-| the client's browser allowing them to enjoy the creative
-| and wonderful application we have prepared for them.
-|
-*/
-
-$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
-
-$response = $kernel->handle(
-    $request = Illuminate\Http\Request::capture()
-);
-
-$response->send();
-
-$kernel->terminate($request, $response);
+                <form name="form" method="POST" action="ApplyForm.php">
+                  <input value="<?php echo $tmp;?>" type="hidden" name="apply">
+                  <input type="submit"  value="Apply">
+                </form>
+                    
+                <?php
+            }
+                echo "</td>";
+                echo "</tr>";
+                
+            //print "Error!: " . $e->getMessage() . "<br/>";
+            die();
+            $dbh = null;
+        } catch (PDOException $e) {
+        }
+        ?>
+        </table>
+    </body>
+</html>
