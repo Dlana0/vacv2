@@ -21,7 +21,45 @@ class DBClass {
  
         return true;
     }
+    public function insertScore($seekerId, $vacancyId, $surveyId, $Escore,
+            $Sscore,
+            $Tscore,
+            $Jscore,
+            $Iscore,
+            $Nscore,
+            $Fscore,
+            $Pscore) {
+        $sql = "INSERT INTO seekersurveyscore(
+            
+            seekerId,
+            vacancyId,
+            surveyId,
+            Escore,
+            Sscore,
+            Tscore,
+            Jscore,
+            Iscore,
+            Nscore,
+            Fscore,
+            Pscore
+            ) VALUES (
+            
+            $seekerId, 
+            $vacancyId, 
+            $surveyId, 
+            $Escore,$Sscore,
+            $Tscore,
+            $Jscore,
+            $Iscore,
+            $Nscore,
+            $Fscore,
+            $Pscore";
  
+        mysql_query($sql) or die(mysql_error());
+ 
+        //return the ID of the user in the database.
+        return mysql_insert_id();
+    }
     //takes a mysql row set and returns an associative array, where the keys
     //in the array are the column names in the row set. If singleRow is set to
     //true, then it will return a single row instead of an array of rows.

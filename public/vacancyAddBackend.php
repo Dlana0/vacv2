@@ -38,6 +38,7 @@ try {
         print_r($pdo->errorInfo());
         
     }
+    
     $stmt->bindParam(':vacancyTypeId', $_POST['type'], PDO::PARAM_STR);       
     $stmt->bindParam(':vacancyExpDate', $_POST['expDate'], PDO::PARAM_STR); 
     $stmt->bindParam(':companyName', $_POST['name'], PDO::PARAM_STR);
@@ -58,6 +59,7 @@ catch (PDOException $e) {
 }
 ?>            
 
-
-</body>
+    <a href="index.php">Iet uz sakumu</a>
+    
+    </body>
 </html>

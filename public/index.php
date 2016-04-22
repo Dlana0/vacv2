@@ -20,6 +20,7 @@ and open the template in the editor.
         <form name = "addNewVacancy" action = "addNewVacancy.php">
             Add new vacancy:
             <input type = "submit" value = "Add new" />
+            
         </form>
         <table class="striped">
             <tr class="header">

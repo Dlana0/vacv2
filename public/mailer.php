@@ -27,8 +27,8 @@ class mailSender
         $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
         $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
         $mail->SMTPSecure = 'tls';
-        $mail->Username   = "indrox@gmail.com";  // GMAIL username
-        $mail->Password   = '';            // GMAIL password
+        $mail->Username   = "dianaozolina2@gmail.com";  // GMAIL username
+        $mail->Password   = 'l33t5p34k';            // GMAIL password
 
         $mail->SetFrom('noreply@talenthire.com','noreply');
 
