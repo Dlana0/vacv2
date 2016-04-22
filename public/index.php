@@ -1,15 +1,62 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>TalentHire</title>
+        
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/newcss.css">
+    <!-- Styles -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     </head>
-    <body>
+    <body style="background-image: url(pics/background.jpg); background-repeat: repeat;">
+        
+        
+        
+        
+        
+        
+        
+        <div class="panel panel-default" id="block">
+        <div class="container-fluid">
+  <div class="row content">
+    
+      <div class="col-sm-6 sidenav">
+      @yield('content')
+      </div>
+      <div id="login" class="col-sm-2 sidenav">
+      <div class="well">
+          @if (Auth::guest())
+          <a href="{{ href="login.blade.php" }}" role="button" class="btn btn-info">Login</a> <br>
+          <a href="{{ href="register.blade.php" }}" role="button" class="btn btn-info">Register</a> <br>
+          
+        @else
+        <a href="{{ url('/addrecipe') }}" role="button" class="btn btn-info">Add new</a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    @endif
+      </div>
+    </div>
+</div>
+      </div>
+            </div>
+        
+        
+        
+        
+        
         </br> </br> </br>
         <!--
         <form name = "vacancyType" action = "vacancyType.php">
@@ -78,6 +125,8 @@ and open the template in the editor.
         } catch (PDOException $e) {
         }
         ?>
+            
+          
         </table>
     </body>
 </html>
