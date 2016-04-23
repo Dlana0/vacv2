@@ -26,6 +26,23 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        //
+
+
+        $gate->define('insert_vacancy', function($user){
+            return $user->type === 1;
+        });
+
+        $gate->define('apply_for_vacancy', function($user){
+            return $user->type === 2;
+        });
+
+        $gate->define('delete_all', function($user){
+            return $user->type === 3;
+        });
+
+        $gate->define('update_vacancy', function($user,$vacancy){
+            return $user->id === $vacancy->user_id;
+        });
+
     }
 }

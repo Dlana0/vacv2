@@ -1,31 +1,81 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+use App\Vacancy;
+use App\User;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
+// ### SKATI, KAS PIEEJAMI DARBA DEVÄ’JIEM ###
 
-Route::group(['middleware' => ['web']], function () {
-    //
-});
+// vakances pievienoÅ?anas formas
+
+
+// vakances datu validÄ?cija un pievienoÅ?ana
+
+
+// vakances laboÅ?anas forma
+
+// vakances datu validÄ?cija un uzlaboÅ?ana
+
+
+//vakances dzÄ“Å?ana
+
+
+// apmÄ?cÄ«bas uzdevumu pievienoÅ?anas forma
+Route::get('/task/add/{vacancy}',['middleware' => 'auth:insert_vacancy', function (Vacancy $vacancy, Request $request) {
+
+    return view('task_add',[
+        'vacancy' => $vacancy,
+        'request' => $request,
+    ]);
+}]);
+
+
+// visas darba devÄ“ja vakances
+
+// vakances visi pieteikumi
+
+
+// ### SKATI, KAS PAREDZÄ’TI KANDIDÄ€TIEM###
+
+
+// uzdevumu skats uz kuriem jÄ?atbild kandidÄ?tam
+
+// kandidÄ?ta atbilÅ¾u saglabÄ?Å?ana
+
+
+// ###SKATI KAS PIEEJAMI VISIEM###
+
+// sÄ?kumlapa
+
+
+
+
+// faila izgÅ«Å?anas skats
+
+
+// ### SKATI, KAS PIEEJAMI VISIEM AUTORIZÄ’TIEM LIETOTÄ€JIEM ###
+// izlogoÅ?anÄ?s
+Route::get('/logout',['middleware' => 'auth',  function () {
+    Auth::logout();
+
+    return redirect('/');
+}]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,132 +1,58 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
 
-        <title>TalentHire</title>
-        
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/newcss.css">
-    <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-    </head>
-    <body style="background-image: url(pics/background.jpg); background-repeat: repeat;">
-        
-        
-        
-        
-        
-        
-        
-        <div class="panel panel-default" id="block">
-        <div class="container-fluid">
-  <div class="row content">
-    
-      <div class="col-sm-6 sidenav">
-      @yield('content')
-      </div>
-      <div id="login" class="col-sm-2 sidenav">
-      <div class="well">
-          @if (Auth::guest())
-          <a href="{{ href="login.blade.php" }}" role="button" class="btn btn-info">Login</a> <br>
-          <a href="{{ href="register.blade.php" }}" role="button" class="btn btn-info">Register</a> <br>
-          
-        @else
-        <a href="{{ url('/addrecipe') }}" role="button" class="btn btn-info">Add new</a>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+/**
+ * Laravel - A PHP Framework For Web Artisans
+ *
+ * @package  Laravel
+ * @author   Taylor Otwell <taylorotwell@gmail.com>
+ */
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
-                        </li>
-                    @endif
-      </div>
-    </div>
-</div>
-      </div>
-            </div>
-        
-        
-        
-        
-        
-        </br> </br> </br>
-        <!--
-        <form name = "vacancyType" action = "vacancyType.php">
-            "Show all vacancy types"
-            <input type = "submit" value = "Open" />
-        </form>
-        -->
-        <form name = "addNewVacancy" action = "addNewVacancy.php">
-            Add new vacancy:
-            <input type = "submit" value = "Add new" />
-            
-        </form>
-        <table class="striped">
-            <tr class="header">
-                <td>Id</td>
-                <td>Type</td>
-                <td>Expiry date</td>
-                <td>Company name</td>
-                <td>Company email</td>
-                <td>Position</td>
-                <td>Description</td>
-                <td>Requirements</td>
-                <td>Offer</td>
-            </tr>
-        <?php
-        $user = 'root';
-        $pass = '';
-        try {
-            $dbh = new PDO('mysql:host=localhost;dbname=talenthire_dbw', $user, $pass);
-            foreach($dbh->query('select * from vacancytable') as $row) {
-                $tmp=$row['vacancyId'];
-                $vacTypeId = $row["vacancyTypeId"];
-                
-                $sql= "select * from vacancyType where VacancyTypeId = :vacTypeId"; 
-                $stmt = $dbh->prepare($sql);
-                $stmt->bindParam(':vacTypeId', $vacTypeId, PDO::PARAM_INT); 
-                $stmt->execute();
-                $vacTypeTable = $stmt->fetchObject();
-                
-                echo "<tr>";
-                echo "<td>".$row["vacancyId"]."</td>";
-                echo "<td>".$vacTypeTable->VacancyTypeName."</td>";
-                echo "<td>".$row["vacancyExpDate"]."</td>";
-                echo "<td>".$row["companyName"]."</td>";
-                echo "<td>".$row["companyEmail"]."</td>";
-                echo "<td>".$row["positionName"]."</td>";
-                echo "<td>".$row["positionDescription"]."</td>";
-                echo "<td>".$row["positionReq"]."</td>";
-                echo "<td>".$row["positionOff"]."</td>";
-                echo "<td>"
-                ?>
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides a convenient, automatically generated class loader for
+| our application. We just need to utilize it! We'll simply require it
+| into the script here so that we don't have to worry about manual
+| loading any of our classes later on. It feels nice to relax.
+|
+*/
 
-                <form name="form" method="POST" action="ApplyForm.php">
-                  <input value="<?php echo $tmp;?>" type="hidden" name="apply">
-                  <input type="submit"  value="Apply">
-                </form>
-                    
-                <?php
-            }
-                echo "</td>";
-                echo "</tr>";
-                
-            //print "Error!: " . $e->getMessage() . "<br/>";
-            die();
-            $dbh = null;
-        } catch (PDOException $e) {
-        }
-        ?>
-            
-          
-        </table>
-    </body>
-</html>
+require __DIR__.'/../bootstrap/autoload.php';
+
+/*
+|--------------------------------------------------------------------------
+| Turn On The Lights
+|--------------------------------------------------------------------------
+|
+| We need to illuminate PHP development, so let us turn on the lights.
+| This bootstraps the framework and gets it ready for use, then it
+| will load up this application so that we can run it and send
+| the responses back to the browser and delight our users.
+|
+*/
+
+$app = require_once __DIR__.'/../bootstrap/app.php';
+
+/*
+|--------------------------------------------------------------------------
+| Run The Application
+|--------------------------------------------------------------------------
+|
+| Once we have the application, we can handle the incoming request
+| through the kernel, and send the associated response back to
+| the client's browser allowing them to enjoy the creative
+| and wonderful application we have prepared for them.
+|
+*/
+
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+
+$response = $kernel->handle(
+    $request = Illuminate\Http\Request::capture()
+);
+
+$response->send();
+
+$kernel->terminate($request, $response);
