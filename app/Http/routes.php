@@ -3,8 +3,6 @@
 use App\Vacancy;
 use App\User;
 use App\Application;
-use App\Task;
-use App\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -13,27 +11,30 @@ use Illuminate\Support\Facades\Storage;
 
 // ### SKATI, KAS PIEEJAMI DARBA DEVÄ’JIEM ###
 
-// vakances pievienoÅ?anas formas
+// vakances pievienoÅ¡anas formas
 Route::get('/vacancy/add',['middleware' => 'auth:insert_vacancy', function () {
     return view('vacancy_add');
 }]);
 
-// vakances datu validÄ?cija un pievienoÅ?ana
-Route::post('/vacancy/add', 'VacancyController@edit');
+
+//vakances dzÄ“Å¡ana
+Route::get('/vacancy/{vacancy}/delete', function (Vacancy $vacancy, Request $request) {
+
+    if ($request->user()->cannot('update_vacancy', $vacancy) && $request->user()->cannot('delete_all')) {
+        return redirect('/vacancy/'.$vacancy->id);
+    }
+
+    $vacancy->delete();
+    return redirect('/');
+});
+
+// vakances apmÄcÄ«bas uzdevumu skats
+
+// visas darba devÄ“ja vakances
 
 
-// apmÄ?cÄ«bas uzdevumu pievienoÅ?anas forma
 
-
-
-// vakances visi pieteikumi
-Route::get('/applications/{vacancy}', 'ApplicationController@vacancyApplications');
-
-// vakances visi pieteikumi ar atvÄ“rtu konkrÄ“tu pieteikumi
-Route::get('/applications/{vacancy}/{uapplication}', 'ApplicationController@vacancyApplications');
-
-
-// vakances pieteikÅ?anÄ?s forma
+// vakances pieteikÅ¡anÄs forma
 Route::get('/vacancy/{vacancy}/apply',['middleware' => 'auth:apply_for_vacancy', function (Vacancy $vacancy, Request $request) {
     return view('vacancy_apply',[
         'vacancy' => $vacancy,
@@ -44,7 +45,7 @@ Route::get('/vacancy/{vacancy}/apply',['middleware' => 'auth:apply_for_vacancy',
 
 // ### SKATI, KAS PAREDZÄ’TI KANDIDÄ€TIEM###
 
-// pieteikuma formas datu validÄ?cija un saglabÄ?Å?ana
+// pieteikuma formas datu validÄcija un saglabÄÅ¡ana
 Route::post('/vacancy/{vacancy}/apply','VacancyController@apply');
 
 // pieteikuma skats
@@ -53,7 +54,7 @@ Route::get('/application/{application}', 'ApplicationController@view');
 
 // ###SKATI KAS PIEEJAMI VISIEM###
 
-// sÄ?kumlapa
+// sÄkumlapa
 Route::get('/', 'VacancyController@latestVacancies');
 
 // vakances atvÄ“rts skats
@@ -68,16 +69,18 @@ Route::get('/vacancy/{vacancy}', function (Vacancy $vacancy, Request $request) {
     ]);
 });
 
-// reÄ£istrÄ“Å?anÄ?s forma
+// reÄ£istrÄ“Å¡anÄs forma
 Route::get('/register', function () {
     return view('register');
 });
 
-// reÄ£istrÄ?cija datu validÄ?cija un saglabÄ?Å?ana
+// reÄ£istrÄcija datu validÄcija un saglabÄÅ¡ana
 Route::post('/register', 'Auth\CustomAuthController@register');
 
+// meklÄ“Å¡anas skats
+Route::post('/search', 'VacancyController@search');
 
-// autorizÄ?cijas datu validÄ?cija un lietotÄ?ja autorizÄ“Å?ana
+// autorizÄcijas datu validÄcija un lietotÄja autorizÄ“Å¡ana
 Route::post('/login','Auth\CustomAuthController@authenticate');
 
 // projekta apraksta skats
@@ -85,7 +88,7 @@ Route::get('/about', function ( Request $request) {
     return view('about');
 });
 
-// faila izgÅ«Å?anas skats
+// faila izgÅ«Å¡anas skats
 Route::get('/file/{file}', function ($file) {
 
     if (Storage::has($file)) {
@@ -101,7 +104,7 @@ Route::get('/file/{file}', function ($file) {
 });
 
 // ### SKATI, KAS PIEEJAMI VISIEM AUTORIZÄ’TIEM LIETOTÄ€JIEM ###
-// izlogoÅ?anÄ?s
+// izlogoÅ¡anÄs
 Route::get('/logout',['middleware' => 'auth',  function () {
     Auth::logout();
 

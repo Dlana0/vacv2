@@ -4,6 +4,11 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
     public function run()
     {
         DB::table('users')->insert([
@@ -39,30 +44,30 @@ class DatabaseSeeder extends Seeder
             'id' => 6,
             'username' => 'admin',
             'email' => 'admin@cv.dev',
-            'name' => 'Administr�?tors',
+            'name' => 'Administrātors',
             'password' => bcrypt('testtest'),
             'type' => 3,
         ]);
 
         DB::table('vacancies')->insert([
             'id' => 9,
-            'title' => 'Aicinam darb�? programmēt�?ju',
-            'description' => 'Uzņēmums pied�?v�?:
-- Interesantu darbu stabil�?, augo�?�? uzņēmum�?;
-- Dinamisku darbu un profesion�?las izaugsmes iespējas;
-- Konkurētspējīgu un motivējo�?u atalgojumu;
-- Darbs draudzīg�?, rado�?�?, profesion�?l�? un pozitīvi noskaņot�? kolektīv�?;',
+            'title' => 'Aicinam darbā programmētāju',
+            'description' => 'Uzņēmums piedāvā:
+- Interesantu darbu stabilā, augošā uzņēmumā;
+- Dinamisku darbu un profesionālas izaugsmes iespējas;
+- Konkurētspējīgu un motivējošu atalgojumu;
+- Darbs draudzīgā, radošā, profesionālā un pozitīvi noskaņotā kolektīvā;',
             'requirements' => '- PHP;
 - HTML;
 - CSS;
 - MySQL;
-- Zin�?�?anas jQuery un Javascript tiks uzskatītas par priek�?rocību. 
+- Zināšanas jQuery un Javascript tiks uzskatītas par priekšrocību. 
 - Interese un spēja apgūt jaunas web tehnoloģijas;
-- Saskarsmes prasmes un sadarbības prasmes, spēja str�?d�?t komand�?;
-- Spēja patst�?vīgi pl�?not, sistematizēt un organizēt savu darbu;
-- Atbildīga pieeja, precizit�?te, enerģiskums un inovatīva dom�?�?ana;',
-            'knowledge' => '- Zin�?�?anas jQuery un Javascript tiks uzskatītas par priek�?rocību. ',
-            'obligations' => 'Web programmēt�?js',
+- Saskarsmes prasmes un sadarbības prasmes, spēja strādāt komandā;
+- Spēja patstāvīgi plānot, sistematizēt un organizēt savu darbu;
+- Atbildīga pieeja, precizitāte, enerģiskums un inovatīva domāšana;',
+            'knowledge' => '- Zināšanas jQuery un Javascript tiks uzskatītas par priekšrocību. ',
+            'obligations' => 'Web programmētājs',
             'duration' => '2016-05-31 00:00:00',
             'user_id' => 8,
         ]);
