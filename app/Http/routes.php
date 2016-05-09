@@ -3,6 +3,7 @@
 use App\Vacancy;
 use App\User;
 use App\Application;
+use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -16,6 +17,18 @@ Route::get('/vacancy/add',['middleware' => 'auth:insert_vacancy', function () {
     return view('vacancy_add');
 }]);
 
+// vakances datu validācija un pievienošana
+Route::post('/vacancy/add', 'VacancyController@edit');
+
+// vakances labošanas forma
+Route::get('/vacancy/{vacancy}/edit',['middleware' => 'auth:insert_vacancy', function (Vacancy $vacancy) {
+    return view('vacancy_edit',[
+        'vacancy' => $vacancy,
+    ]);
+}]);
+
+// vakances datu validācija un uzlabošana
+Route::post('/vacancy/{vacancy}/edit', 'VacancyController@edit');
 
 //vakances dzēšana
 Route::get('/vacancy/{vacancy}/delete', function (Vacancy $vacancy, Request $request) {
@@ -29,9 +42,35 @@ Route::get('/vacancy/{vacancy}/delete', function (Vacancy $vacancy, Request $req
 });
 
 // vakances apmācības uzdevumu skats
+Route::get('/tasks/{vacancy}', ['middleware' => 'auth:insert_vacancy',function (Vacancy $vacancy, Request $request) {
 
-// visas darba devēja vakances
+    $tasks = Task::where('vacancy_id',$vacancy->id)->get();
 
+    return view('tasks',[
+        'tasks' => $tasks,
+        'vacancy' => $vacancy,
+        'request' => $request,
+    ]);
+}]);
+
+// apmācības uzdevumu pievienošanas forma
+Route::get('/task/add/{vacancy}',['middleware' => 'auth:insert_vacancy', function (Vacancy $vacancy, Request $request) {
+
+    return view('task_add',[
+        'vacancy' => $vacancy,
+        'request' => $request,
+    ]);
+}]);
+
+
+// apmācības uzdevuma datu validācijas un rediģēšana
+Route::post('/task/edit/{vacancy}/{task}','TaskController@taskSave');
+// apmācības uzdevuma datu validācija un pievienošana
+Route::post('/task/add/{vacancy}', 'TaskController@add');
+
+
+// vakances visi pieteikumi ar atvērtu konkrētu pieteikumi
+Route::get('/applications/{vacancy}/{uapplication}', 'ApplicationController@vacancyApplications');
 
 
 // vakances pieteikšanās forma
@@ -50,6 +89,9 @@ Route::post('/vacancy/{vacancy}/apply','VacancyController@apply');
 
 // pieteikuma skats
 Route::get('/application/{application}', 'ApplicationController@view');
+
+// kandidāta visi pieteikumi
+Route::get('/my_applications','ApplicationController@my');
 
 
 // ###SKATI KAS PIEEJAMI VISIEM###
@@ -110,7 +152,6 @@ Route::get('/logout',['middleware' => 'auth',  function () {
 
     return redirect('/');
 }]);
-
 
 
 
