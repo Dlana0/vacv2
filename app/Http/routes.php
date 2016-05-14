@@ -4,6 +4,7 @@ use App\Vacancy;
 use App\User;
 use App\Application;
 use App\Task;
+use App\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -62,6 +63,15 @@ Route::get('/task/add/{vacancy}',['middleware' => 'auth:insert_vacancy', functio
     ]);
 }]);
 
+// apmācības uzdevumu labošanas forma
+Route::get('/task/edit/{vacancy}/{task}', ['middleware' => 'auth:insert_vacancy',function (Vacancy $vacancy, Task $task, Request $request) {
+
+    return view('task_edit',[
+        'vacancy' => $vacancy,
+        'task' => $task,
+        'request' => $request,
+    ]);
+}]);
 
 // apmācības uzdevuma datu validācijas un rediģēšana
 Route::post('/task/edit/{vacancy}/{task}','TaskController@taskSave');
@@ -69,9 +79,17 @@ Route::post('/task/edit/{vacancy}/{task}','TaskController@taskSave');
 Route::post('/task/add/{vacancy}', 'TaskController@add');
 
 
+// vakances visi pieteikumi
+Route::get('/applications/{vacancy}', 'ApplicationController@vacancyApplications');
+
 // vakances visi pieteikumi ar atvērtu konkrētu pieteikumi
 Route::get('/applications/{vacancy}/{uapplication}', 'ApplicationController@vacancyApplications');
 
+// atzīmes ielikšana atbildei
+Route::post('/applications/{vacancy}/{uapplication}', 'AnswerController@saveMark');
+
+// pieteikuma statusa maiņa
+Route::post('/application/status/{application}', 'ApplicationController@updateStatus');
 
 // vakances pieteikšanās forma
 Route::get('/vacancy/{vacancy}/apply',['middleware' => 'auth:apply_for_vacancy', function (Vacancy $vacancy, Request $request) {
@@ -93,6 +111,11 @@ Route::get('/application/{application}', 'ApplicationController@view');
 // kandidāta visi pieteikumi
 Route::get('/my_applications','ApplicationController@my');
 
+// uzdevumu skats uz kuriem jāatbild kandidātam
+Route::get('/answer_tasks/{vacancy}','TaskController@userTasks');
+Route::get('/answer_tasks/{vacancy}/{task}','TaskController@userTasks');
+// kandidāta atbilžu saglabāšana
+Route::post('/answer_tasks/{vacancy}/{task}', 'AnswerController@answerSave');
 
 // ###SKATI KAS PIEEJAMI VISIEM###
 
@@ -152,7 +175,6 @@ Route::get('/logout',['middleware' => 'auth',  function () {
 
     return redirect('/');
 }]);
-
 
 
 

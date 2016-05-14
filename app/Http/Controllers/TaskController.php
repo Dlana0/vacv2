@@ -9,6 +9,7 @@ use App\Vacancy;
 use App\User;
 use App\Application;
 use App\Task;
+use App\Answer;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;

@@ -35,3 +35,4 @@ class CreateAnswersTable extends Migration
         Schema::drop('answers');
     }
 }
+
