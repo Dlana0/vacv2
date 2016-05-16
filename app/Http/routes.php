@@ -78,6 +78,8 @@ Route::post('/task/edit/{vacancy}/{task}','TaskController@taskSave');
 // apmācības uzdevuma datu validācija un pievienošana
 Route::post('/task/add/{vacancy}', 'TaskController@add');
 
+// visas darba devēja vakances
+Route::get('/my_vacancies','VacancyController@userVacancies');
 
 // vakances visi pieteikumi
 Route::get('/applications/{vacancy}', 'ApplicationController@vacancyApplications');
@@ -175,6 +177,7 @@ Route::get('/logout',['middleware' => 'auth',  function () {
 
     return redirect('/');
 }]);
+
 
 
 

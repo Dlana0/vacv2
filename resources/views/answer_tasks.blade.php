@@ -46,6 +46,7 @@
                 <div class="page-header">
                     <h1>Atbildēt</h1>
                 </div>
+                
                 <!-- Display Validation Errors -->
                 @include('common.errors')
 
