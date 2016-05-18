@@ -1,6 +1,5 @@
 <!-- resources/views/vacancy.blade.php -->
 
-
 @extends('layout')
 
 @section('content')

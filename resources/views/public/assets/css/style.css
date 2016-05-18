@@ -1,0 +1,52 @@
+html {
+    height: 100%;
+}
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position:relative;
+    height: 100%;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.topnav {
+    margin-bottom: 10px;
+}
+
+.footer {
+    margin-top: 100px;
+    bottom: 0px;
+
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    background-color: #f5f5f5;
+}
+
+body > .container {
+    padding: 0px 0px 0px 0px;
+    height: 100%;
+    position: relative;
+}
+.container .text-muted {
+    margin: 20px 0;
+}
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.add_vacancy {
+    margin-bottom: 20px;
+}
+
+.tinymce {
+    height: 500px;
+}
+
+.task {
+    border-bottom: 2px solid #ccc;
+}

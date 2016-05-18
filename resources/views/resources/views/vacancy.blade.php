@@ -10,7 +10,6 @@
         @if($vacancy->user_id == Auth::id())
         <a href="/vacancy/{{$vacancy->id}}/edit" class="btn btn-primary btn-lg add_vacancy" role="button" >Labot aprakstu</a>
         @endif
-        
     @endcan
 
     <dl class="dl-horizontal">
