@@ -6,7 +6,8 @@
     <div class="page-header">
         <h1>Manas vakances</h1>
     </div>
-    <!-- Display Validation Errors -->
+    
+
     @include('common.errors')
 
     @can('insert_vacancy')

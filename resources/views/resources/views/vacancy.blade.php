@@ -28,7 +28,7 @@
         <dt>pienākumi</dt>
         <dd>{!!nl2br($vacancy->obligations)!!}</dd>
 
-        <dt>beigu termiņš:</dt>
+        <dt>vakances termiņš:</dt>
         <dd>{{$vacancy->duration}}</dd>
         @can('apply_for_vacancy')
         @if(count($application) == 0)

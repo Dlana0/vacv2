@@ -16,13 +16,13 @@
             <form class="form-horizontal" method="POST" action="" >
                 {!! csrf_field() !!}
                 <div class="form-group">
-                    <label for="username" class="col-sm-2 control-label">virsraksts</label>
+                    <label for="username" class="col-sm-2 control-label">Virsraksts</label>
                     <div class="col-sm-10">
                         <input type="string" class="form-control" id="title" name="title" value="{{$task->title}}" placeholder="virsraksts">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="username" class="col-sm-2 control-label">uzdevums</label>
+                    <label for="username" class="col-sm-2 control-label">Uzdevums</label>
                     <div class="col-sm-10" >
                         <textarea name="description" class="tinymce" >{!!$task->description!!}</textarea>
                     </div>

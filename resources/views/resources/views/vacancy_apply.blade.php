@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="comments" class="col-sm-2 control-label">Komentāri</label>
+                    <label for="comments" class="col-sm-2 control-label">Komentāri/motivācija</label>
                     <div class="col-sm-8">
                         <textarea class="form-control" id="comments" name="comments" >{{old('comments')}}</textarea>
                     </div>

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 
 // ### SKATI, KAS PIEEJAMI DARBA DEVĒJIEM ###
 
-// vakances pievienošanas formas
+// vakances pievienošanas forma
 Route::get('/vacancy/add',['middleware' => 'auth:insert_vacancy', function () {
     return view('vacancy_add');
 }]);
@@ -72,11 +72,12 @@ Route::get('/task/edit/{vacancy}/{task}', ['middleware' => 'auth:insert_vacancy'
         'request' => $request,
     ]);
 }]);
+// apmācības uzdevuma datu validācija un pievienošana
+Route::post('/task/add/{vacancy}', 'TaskController@add');
 
 // apmācības uzdevuma datu validācijas un rediģēšana
 Route::post('/task/edit/{vacancy}/{task}','TaskController@taskSave');
-// apmācības uzdevuma datu validācija un pievienošana
-Route::post('/task/add/{vacancy}', 'TaskController@add');
+
 
 // visas darba devēja vakances
 Route::get('/my_vacancies','VacancyController@userVacancies');
@@ -87,7 +88,7 @@ Route::get('/applications/{vacancy}', 'ApplicationController@vacancyApplications
 // vakances visi pieteikumi ar atvērtu konkrētu pieteikumi
 Route::get('/applications/{vacancy}/{uapplication}', 'ApplicationController@vacancyApplications');
 
-// atzīmes ielikšana atbildei
+// vērtējums atbildei
 Route::post('/applications/{vacancy}/{uapplication}', 'AnswerController@saveMark');
 
 // pieteikuma statusa maiņa
@@ -171,7 +172,7 @@ Route::get('/file/{file}', function ($file) {
 });
 
 // ### SKATI, KAS PIEEJAMI VISIEM AUTORIZĒTIEM LIETOTĀJIEM ###
-// izlogošanās
+// atslēgšanās
 Route::get('/logout',['middleware' => 'auth',  function () {
     Auth::logout();
 

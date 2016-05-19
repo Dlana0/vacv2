@@ -7,7 +7,7 @@
         <h1>Pievienot vakanci</h1>
     </div>
 
-    <!-- Display Validation Errors -->
+    
     @include('common.errors')
 
     <div class="row" >
