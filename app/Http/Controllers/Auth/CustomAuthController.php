@@ -28,19 +28,21 @@ class CustomAuthController extends Controller
      */
     public function authenticate(Request $request)
     {
-
+        //izsaukts validators, lietotājvārds, parole ir obligāti
         $validator = Validator::make($request->all(), [
             'username' => 'required',
             'password' => 'required',
         ]);
 
-
+        //ja neizpildās, atgriež atpakaļ lapā ar ievadītajiem datiem
         if ($validator->fails()) {
             return redirect('/')
                 ->withInput()
                 ->withErrors($validator);
         }
-
+        
+        //ja autentifikācija neizpildās, atgriež atpakaļ lapā ar ievadītajiem datiem un kļūdu
+        //paziņojumiem
         if (!Auth::attempt(['username' =>$request->input('username'), 'password' => $request->input('password')])) {
             $validator->errors()->add('login', 'No such user or password');
             return redirect('/')
@@ -48,6 +50,7 @@ class CustomAuthController extends Controller
                 ->withErrors($validator);
         }
 
+         //autentifikācija izpildās, atgriež sākuma lapā kā autorizētu lietotāju
         Log::info('loged in: '.$request->input('username'));
         return redirect('/');
 

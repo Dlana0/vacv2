@@ -11,7 +11,7 @@
         <dd>{!!nl2br($application->comments)!!}</dd>
 
         <dt>sasniegumi:</dt>
-        <dd>{!!nl2br($application->archievments)!!}</dd>
+        <dd>{!!nl2br($application->achievments)!!}</dd>
 
         <dt>veids<dt>
         <dd>{{config('constants.application_type.'.$application->type)}}</dd>
@@ -22,7 +22,6 @@
         <dt>cv</dt>
         <dd><a href="/file/{{$application->file}}">Lejupielādēt CV</a></dd>
     </dl>
-
 
 
 @endsection

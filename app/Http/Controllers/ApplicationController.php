@@ -43,7 +43,7 @@ class ApplicationController extends Controller
                 ->get();
         }
 
-
+        //atgriež skatu ar saglabātajām mainīgā vērtībām
         return view('applications',[
             'applications' => $applications,
             'vacancy' => $vacancy,
@@ -96,6 +96,7 @@ class ApplicationController extends Controller
 
         $vacancy = Vacancy::where('id',$application->vacancy_id)->first();
 
+        //tiek izmainīti application tabulas status rindiņas dati
         Application::where('id',$application->id)->update([
             'status' => $request->input('status'),
         ]);

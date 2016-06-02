@@ -20,6 +20,7 @@ class TaskController extends Controller
     /*
      * Apmācības uzdevuma labošana, pieejama tikai darba devējam
      */
+    
     public function taskSave(Vacancy $vacancy, Task $task, Request $request)
     {
         $this->middleware('auth:insert_vacancy');

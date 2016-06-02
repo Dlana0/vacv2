@@ -57,13 +57,6 @@ class VacancyController extends Controller
         }
 
 
-        if ($extension != 'pdf' && $extension != 'doc' && $extension != 'docx') {
-            $validator->errors()->add('file', 'Ir atļauti tikai šādi faila formāti (pdf,doc,docx)');
-            return redirect('/vacancy/'.$vacancy->id.'/apply')
-                ->withInput()
-                ->withErrors($validator);
-        }
-
         $return = Application::create([
             'user_id' => Auth::id(),
             'vacancy_id' => $vacancy->id,
@@ -91,7 +84,7 @@ class VacancyController extends Controller
     }
 
     /*
-     * vakances datu labošana, pieejam darba devējiem
+     * vakances datu labošana, pieejama darba devējiem
      */
     public function edit(Request $request, Vacancy $vacancy) {
 
@@ -164,7 +157,7 @@ class VacancyController extends Controller
             ->orWhere('knowledge','LIKE','%'.$request->input('search').'%')
             ->orWhere('obligations','LIKE','%'.$request->input('search').'%')
             ->select('users.name','vacancies.title','vacancies.description','vacancies.duration','vacancies.id')
-            ->orderBy('vacancies.created_at', 'asc')->get();
+            ->orderBy('vacancies.created_at', 'desc')->get();
 
         return view('search', [
             'vacancies' => $vacancies,

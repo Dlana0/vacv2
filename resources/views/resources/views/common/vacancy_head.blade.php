@@ -32,5 +32,5 @@
     @endcan
 
 </ul>
-<br />
+
 @endif

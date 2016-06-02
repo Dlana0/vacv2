@@ -24,6 +24,7 @@ class AnswerController extends Controller
      * @param Request $request
      * @return mixed
      */
+    //paņemti datubāzes dati no vakanču un uzdevumu tabulas uz funkcijas pieprasījuma
     public function answerSave(Vacancy $vacancy, Task $task, Request $request)
     {
         $this->middleware('auth:apply_for_vacancy');
@@ -32,11 +33,16 @@ class AnswerController extends Controller
         $validator = Validator::make($request->all(), [
             'text' => 'required',
         ]);
-
+        
+        //Atgriež uz vakances uzdevumu lapu, id no datubāzes tabulām, atgriež ievadīto ar
+        //kļūdu paziņojumiem
         if ($validator->fails()) {
             return redirect('/answer_tasks/'.$vacancy->id.'/'.$task->id)->withInput()->withErrors($validator);
         }
 
+        //saglabā mainīgo ar izsauktās tabulas rindu, kur lietotāja id = autorizēta lietotāja id
+        //un vakances id = šī uzdevuma vakances id
+        //saglabā pirmo atrasto vērtību
         $application = Application::where('user_id', Auth::id())
             ->where('vacancy_id', $task->vacancy_id)
             ->first();
@@ -45,7 +51,7 @@ class AnswerController extends Controller
         $answers = Answer::where('user_id', Auth::id())
             ->where('task_id', $task->id)
             ->where('application_id', $application->id)
-            ->get();
+            ->get(); //saglabā mainīgajā visas atrastās vērtības
 
         Log::info('pirms skatīt atbildi');
         if (count($answers) > 0) {
@@ -55,6 +61,7 @@ class AnswerController extends Controller
                 ->withErrors($validator);
         }
 
+        //izveido datubāzē jaunu ierakstu ar datiem
         $return = Answer::create([
             'user_id' => Auth::id(),
             'task_id' => $task->id,
@@ -81,7 +88,7 @@ class AnswerController extends Controller
 
             Storage::put($file_name, file_get_contents($request->file('file')));
 
-            // updeitoja pieteikumu tabulu ar jauno faila nosaukumu
+            // atjauno pieteikumu tabulu ar jauno faila nosaukumu
             Answer::where('id', $id)->update([
                 'file' => $file_name,
             ]);

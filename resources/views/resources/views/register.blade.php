@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label for="username" class="col-sm-4 control-label">Lietotājvārds</label>
                 <div class="col-sm-8">
-                    <input type="string" class="form-control" id="username" name="username" value="{{old('name')}}" placeholder="lietotājvārds">
+                    <input type="string" class="form-control" id="username" name="username" value="{{old('name')}}" placeholder="Lietotājvārds">
                 </div>
             </div>
             <div class="form-group">

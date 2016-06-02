@@ -7,14 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 class Authenticate
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
-     * @return mixed
-     */
+
+    //apstrādā ienākošo pieprasījumu
     public function handle($request, Closure $next, $role = null)
     {
         if (Auth::guest()) {
